@@ -20,7 +20,7 @@ spec:
       containers:
         - name: frontend
 
-          image: victory11942656/cinema-frontend:1.1
+          image: victory11942656/cinema-frontend:6
 
           imagePullPolicy: Always
 
