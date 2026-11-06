@@ -1,0 +1,54 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: backend-hpa
+  namespace: cinema
+
+spec:
+
+  # 확장 대상
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+
+  # 최소 Pod 수
+  minReplicas: 1
+
+  # 최대 Pod 수
+  maxReplicas: 5
+
+  # CPU 사용률 기준
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+
+  # Scale Up / Down 정책
+  behavior:
+
+    scaleUp:
+      stabilizationWindowSeconds: 0
+
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 30
+
+        - type: Percent
+          value: 100
+          periodSeconds: 30
+
+      selectPolicy: Max
+
+    scaleDown:
+      stabilizationWindowSeconds: 60
+
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 60
