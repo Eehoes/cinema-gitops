@@ -20,7 +20,7 @@ spec:
       containers:
         - name: backend
 
-          image: victory11942656/cinema-backend:9
+          image: victory11942656/cinema-backend:10
 
           imagePullPolicy: Always
 
